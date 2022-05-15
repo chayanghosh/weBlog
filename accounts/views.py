@@ -48,7 +48,7 @@ def register(request):
                 mydict={'firstname':first_name}
                 html_template = 'register_email.html'
                 html_message = render_to_string(html_template, context=mydict)
-                subject = 'Welcome to TODO list Verse'
+                subject = 'Welcome to Insight-Explorer!'
                 email_from = settings.EMAIL_HOST_USER
                 recipient_list = [email]
                 message = EmailMessage(subject, html_message,
