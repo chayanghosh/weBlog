@@ -10,7 +10,7 @@ import random
 @login_required(login_url='login')
 def home(request):
     obs = Post.objects.all()[::-1]
-    l=['Travel','Photography','Technology','Music','Study','science','Sports','Business','Fashion','Public','Others']
+    l=['Travel','Photography','Technology','Music','Study','Science','Sports','Business','Fashion','Public','Others']
     d={}
     for i in range(len(l)):
         ob = Post.objects.filter(category=l[i])
