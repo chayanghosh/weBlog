@@ -64,7 +64,7 @@
                         <div class="category">
                             {% for item in random_item %}
                             <a href="/readmore/{{item.id}}"><span>
-                                    <h3>{{item.title|safe|truncatewords:"10"}}</h3>
+                                    <h3>{{item.title|safe|truncatewords:"3"}}</h3>
                                 </span></a>
                             {% endfor %}
                         </div>
