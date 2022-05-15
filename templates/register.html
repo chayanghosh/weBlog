@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+    <title>Registration Form</title>
+    <style type="text/css">
+        label{
+            width: 100px;
+            display: inline-block;
+        }
+        .main{
+            border-radius: 10px;
+            width: ;
+        }
+    </style>
+</head>
+<body style="text-align: center">
+    
+    <div class="main">
+        <div class="register">
+    <h2>REGISTRATION FORM</h2>
+    <form id="register" action="register" method="POST">
+        {% csrf_token %}
+    <label for="fname">First Name :</label>
+    <input type="text" id="fname" name="first_name" placeholder="First Name" required><br> <br>
+    <label for="lname">Last Name :</label>
+    <input type="text" id="lname" name="last_name" placeholder="Last Name" required><br> <br>
+    <label for="email">Username :</label>
+    <input type="text" id="uname" name="username" placeholder="username" required><br> <br>
+    <label for="email">Email :</label>
+    <input type="email" id="email" name="email" placeholder="Enter mail id" required><br> <br>
+    <label for="pwd">Enter Password :</label>
+    <input type="password" id="pwd" name="password1" placeholder="Enter password" required><br> <br>
+    <label for="pwd">Confirm Password :</label>
+    <input type="password" id="pwd" name="password2" placeholder="Confirm password" required><br> <br>
+    <h5 style="text-align: center; margin-bottom: 10px;">
+        {% for message in messages %}
+        {{message}}
+        {% endfor %}
+    <br></h5>
+    <input type="submit" id="submit" value="Register">
+    &nbsp;
+    <input type="submit" id="cancel" value="Cancel">
+    <br><br>
+    <div class="regbox">
+    <a href="{% url 'login' %}">Already registered?</a>
+    </div>
+    </form>
+    </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+{% load static %}
+{% csrf_token %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <link rel="stylesheet" href="{% static './css/style13.css' %}">
+        <title>ABOUT</title>
+    </head>
+<body>
+    <div class="main">
+        <header class="header">
+            <a href="#" class="logo"><span>i</span>nsight <span>E</span>xplorer</a>
+            <nav class="navbar">
+                <a href="{% url 'home' %} " >Home</a>
+                <a href="{% url 'about' %}" >About</a>
+                <a href="{% url 'create' %} " >Create Post</a>
+                <a href="profile/{{user.username}}" >Profile</a>
+                <a href="{% url 'logout' %}">Log out</a>
+            </nav>
+            <div class="icons">
+                <i class="fas fa-bars" id="menu-bars"></i>
+                <!-- <i class="fas fa-search" id="search-icon"></i> -->
+            </div>
+            <form action="" class="search-form">
+                <input type="search" name="" placeholder="search here..." id="search-box">
+                <label for="search-box" class="fas fa-search"></label>
+            </form>
+        </header>
+        </div>
+        <script src="{% static './javascript/script.js' %}"></script>
+          
+    <!-- <nav class='navbar bg-dark'>
+        <div class='container'>
+        <h1 class='logo lg-heading text-light'>AJCS</h1>
+        <ul class='nav-items'>
+            <li class='nav-item' ><a href='./home.html'>HOME</a></li>
+            <li class='nav-item' ><a href='./about.html'>ABOUT</a></li>
+            <li class='nav-item' ><a href='./contact.html'>CONTACT</a></li>
+            <li class='nav-item'><a href='./registration.html'>REGISTER</a></li>
+            <li class='nav-item '><a href='./login.html'>LOGIN</a></li>
+        </ul>
+        </div>
+    </nav> -->
+    <div class="abc">
+    <section class='about'>
+        <div class='container'>
+        <h2 class='lg-heading text-black about-heading'>About Us</h2>
+        <p>It is a informational website or a platform where a writer or a group of writers share their views on an individual subject and over here people can post, interact, comment on latest post appearing first at the top.<br><br>Purposefully designed by our founders (Chayan Ghosh, Sayan Das) as a backend Developer and (Jyoti Mondal and Ankita Majee) as a frontend developers to connect with different lifestyle, tour, technology, food etc with the people around you. Decided to bring diversity of thoughts and talents on a single page.</p>
+        <!-- <p>We aim to build the worlds largest online test panel through which we can also practice various sets.We want to build a good communication between a student and the question patterns and make it student freindly and also provide a good interface.<br><br>Join us in our journey to change the future of learning.</p> -->
+        
+        <div class="counts">
+            <div class="count-item count-item1">
+             <span>{{obs2|length}}</span>
+             <p>Resgistered users</p>
+            </div>
+            <div class="count-item count-item2">
+            <span>100%</span>
+            <p>Safe Website</p>
+            </div>
+            <div class="count-item count-item3">
+                <span>{{obs|length}}</span>
+                <p>Posts</p>
+            </div>
+            <div class="count-item count-item3">
+                <span>10+</span>
+                <p>Categories</p>
+                </div> 
+
+        </div>
+        <div class="cta-banner">
+            <div class="cta-banner-left">
+                <p class="cta-line">For any query , contact us now</p>
+            </div>
+            <div class="cta-banner-right">
+                <a href="mailto:insightexplorerblogs@gmail.com" class="btn-cta">Contact Us</a>
+            </div>
+        </div>
+
+        </div>
+        
+    </section>
+    </div>
+    
+</body>
+</html>

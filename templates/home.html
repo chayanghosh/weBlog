@@ -1,0 +1,110 @@
+{% csrf_token %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Insight Explorer</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style5.css' %}">
+</head>
+<body>
+    
+    <header class="header">
+        <a href="#" class="logo"><span>i</span>nsight <span>E</span>xplorer</a>
+        <nav class="navbar">
+            {% csrf_token %}
+            {% load static %}
+            <a href="{% url 'home' %} " >Home</a>
+            <a href="{% url 'about' %}" >About</a>
+            <a href="{% url 'create' %} " >Create Post</a>
+            <a href="profile/{{user.username}}" >Profile</a>
+            <a href="{% url 'logout' %}">Log out</a>
+        </nav>
+        <div class="icons">
+            <i class="fas fa-bars" id="menu-bars"></i>
+            <i class="fas fa-search" id="search-icon"></i>
+        </div>
+        <form action="/search" method="GET" class="search-form">
+            <a href="top"></a>
+            <input type="search" name="query" placeholder="search here..." id="search-box">
+            <button type="submit" class="fas fa-search"></button>
+        </form>
+    </header>
+    <script src="{% static 'javascript/script.js' %}"></script>
+
+<section class ="banner" id=""banner>
+
+<div class ="content">
+<h3>Hello, {{user.first_name}}!</h3>
+<p>Create more, Explore more.</p>
+<a href="profile/{{user.username}}" class="btn">My blogs</a>
+</div>
+</section>
+
+
+<section class="container" id="posts">
+<div class="posts-container">
+{% for ob in obs %}
+<div class="post">
+    <img src="{{ob.img.url}}" alt="Image" class="image">
+    <div class="date">
+        <i class="far fa-clock"></i>
+        <span>{{ob.date}}</span>
+    </div>
+    <h3 class="title">{{ob.title}}</h3>
+    <p class="text">{{ob.body|safe|truncatewords:"10"}}
+    </p>
+    {% if ob.body|length > 50 %}
+    <button onclick="window.location.href='readmore/{{ob.id}}'">Read more</button>
+    {% endif %}
+    
+    <div class="links">
+        <a href="profile/{{ob.name}}" class="user">
+            <i class="far fa-user"></i>
+            <span>{{ob.name}}</span>
+        </a> 
+        <a href="readmore/{{ob.id}}#comments" class="icon">
+            <i class="far fa-comment"></i>
+        </a>
+        
+    </div>
+</div>
+{% endfor %}
+
+</div>
+<div class="sidebar">
+<div class="box">
+    <h3 class="title">About Us</h3>
+    <div class="about">
+        <img src="{% static 'img/team_insight.png' %}" alt="">
+        <h3><a href="{% url 'about' %}" >Team insights</a></h3>
+        <p>insight Explorer helps you to connect and share with the world.</p>
+        <div class="follow">
+            <a href="#" class="fab fa-facebook-f"></a>
+            <a href="#" class="fab fa-twitter"></a>
+            <a href="#" class="fab fa-instagram"></a>
+            <a href="#" class="fab fa-linkedin"></a>
+        </div>
+
+    </div>
+</div>
+<div class="box">
+    <h3 class="title">Categories</h3>
+    <div class="category">
+        {% for key,val in dict.items %}
+        <a href="category/{{key}}"> {{key}} <span> {{val}} </span></a>
+        {% endfor %}
+    </div>
+</div>
+
+
+</div>
+</section>
+<a href="/#top" class="goto-top"><i class="fas fa-arrow-alt-circle-up"></i></a>
+</body>
+</html>

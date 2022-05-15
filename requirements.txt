@@ -1,0 +1,9 @@
+asgiref==3.5.0
+backports.zoneinfo==0.2.1
+Django==4.0.3
+django-social-share==2.2.1
+Pillow==9.1.0
+pypiwin32==223
+pywin32==303
+sqlparse==0.4.2
+tzdata==2022.1

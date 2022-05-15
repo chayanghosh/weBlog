@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+{% load static %}
+{% load social_share %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{% static './css/style9.css' %}">
+</head>
+
+<body>
+    <div class="main">
+        <header class="header">
+            <a href="#" class="logo"><span>i</span>nsight <span>E</span>xplorer</a>
+            <nav class="navbar">
+                <a href="{% url 'home' %} ">Home</a>
+                <a href="{% url 'about' %}">About</a>
+                <a href="{% url 'create' %} ">Create Post</a>
+                <a href="/profile/{{user.username}}">Profile</a>
+                <a href="{% url 'logout' %}">Log out</a>
+            </nav>
+            <div class="icons">
+                <i class="fas fa-bars" id="menu-bars"></i>
+
+            </div>
+            <form action="" class="search-form">
+                <input type="search" name="" placeholder="search here..." id="search-box">
+                <!--<label for="search-box" class="fas fa-search"></label>-->
+                <button type="submit" class="fas fa-search"></button>
+            </form>
+        </header>
+    </div>
+    <script src="{% static './javascript/script.js' %}"></script>
+    <div class="obj">
+        <section class="container" id="posts">
+            <div class="posts-container">
+                <div class="post">
+                    <img src="{{obs.img.url}}" alt="" class="image">
+                    <div class="date">
+                        <i class="far fa-clock"></i>
+                        <span>{{obs.date}}</span>
+                    </div>
+                    <h3 class="title">{{obs.title}}</h3>
+                    <p class="text">{{obs.body}}</span></p>
+                    <div class="links">
+                        <a href="#" class="user">
+                            <i class="far fa-user"></i>
+                            <span>By {{obs.name}}</span>
+                        </a>
+
+                        {% post_to_twitter "New Blog: Check it out!" object_or_url '<i class="fab fa-twitter" style="font-size: 2rem;"></i>' %}
+                        {% post_to_whatsapp object_or_url '<i style="font-size: 2rem;" class="fab fa-whatsapp"></i>' %}
+                        <!-- {% post_to_facebook object_or_url '<i class="fab fa-facebook" style="font-size: 2rem;"></i>'%} -->
+                    </div>
+
+                </div>
+                <div class="sidebar">
+                    <div class="box">
+                        <h3 class="title">You might like..</h3>
+                        <div class="category">
+                            {% for item in random_item %}
+                            <a href="/readmore/{{item.id}}"><span>
+                                    <h3>{{item.title}}</h3>
+                                </span></a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <a name="comments"></a>
+                <h2>Comments</h2>
+                <div class="xyz">
+                    {% if temps|length == 0 %}
+                    <p>No comments found :(</p><br>
+                    {% else %}
+                    {% for temp in temps %}
+                    <p class="comment"><span class="user-comment"><a href="/profile/{{temp.name}}"><span
+                                    class="def">{{temp.name}}</span>:</a> <span
+                            class="comment-data">&nbsp;{{temp.body}}</span></span> <span
+                            class="ghi">{{temp.date}}</span></p>
+                    <br>
+                    {% endfor %}
+                    <br>
+                    {% endif %}
+                </div>
+                {% if user.is_authenticated %}
+                <h2 class="h2class">Leave a comment</h2>
+                <form action="{% url 'cmt' %}" method="post">
+                    {% csrf_token %}
+
+                    <textarea name="comment" class="form-control comment-box" rows="10" autocomplete="off"></textarea>
+                    <input type="hidden" value="{{user.username}}" name="name">
+                    <input type="hidden" value="{{obs.id}}" name="value">
+                    <br><br><button type="submit" class="form-btn">Submit</button><br><br><br><br>
+                </form>
+                {% endif %}
+        </section>
+    </div>
+
+</body>
+
+</html>

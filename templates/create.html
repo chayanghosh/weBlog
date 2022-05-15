@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style6.css' %}">
+    <title>Create page</title>
+</head>
+<body>
+    <header class="header">
+        <a href="#" class="logo"><span>i</span>nsight <span>E</span>xplorer</a>
+        <nav class="navbar">
+            <a href="{% url 'home' %}" >Home</a>
+            <a href="{% url 'about' %}" >About</a>
+            <a href="{% url 'create' %} " >Create Post</a>
+            <a href="profile/{{user.username}}" >Profile</a>
+            <a href="{% url 'logout' %}">Log out</a>
+        </nav>
+        <div class="icons">
+             <i class="fas fa-bars" id="menu-bars"></i> 
+            <!-- <i class="fas fa-search" id="search-icon"></i> -->
+        </div>
+        <!-- <form action="" class="search-form">
+            <input type="search" name="" placeholder="search here..." id="search-box">
+            <label for="search-box" class="fas fa-search"></label>
+        </form> -->
+    </header>
+    <script src="{% static 'javascript/script.js' %}"></script>
+    
+    <div class="form-wrapper">
+    <form action="create" class="form" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">Title</label>
+            <input type="text" name="title" id="username" required  >
+        </div>
+        
+        <div class="form-group">
+            <label for="message">Write your blog</label>
+            <textarea name ="body" id="message" required></textarea >
+        </div>
+        <div class="form-group">
+            <input class="file-upload" name="img" type="file" onchange="readURL(this)" accept="Image/*">
+        </div>
+        
+        <p>Categories:</p>
+        <select name="Categories">
+            <option value="Travel">Travel</option>
+            <option value="Photography"> Photography</option>
+            <option value="Technology"> Technology </option>
+            <option value="Music"> Music </option>
+            <option value="Study"> Study </option>
+            <option value="Science"> science </option>
+            <option value="Sports"> Sports </option>
+            <option value="Business"> Business </option>
+            <option value="Fashion"> Fashion </option>
+            <option value="Public"> Public </option>
+            <option value="Others"> Others </option>
+        </select><br> <br><br><br>
+        
+        <input type="hidden" name="name" value="{{user.username}}">
+        <button type="submit" class="form-btn">Post</button>
+        
+
+    </form>
+    </div>
+    
+
+
+    
+</body>
+</html>
