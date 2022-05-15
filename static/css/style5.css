@@ -141,7 +141,7 @@ section{
 
 .banner .content{
     text-align: center;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.75);
     border-radius: .5rem;
     box-shadow: var(--box-shadow);
     padding: 3rem;
