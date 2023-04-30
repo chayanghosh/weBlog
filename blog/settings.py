@@ -143,7 +143,7 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': 'mCQgCLlm27R2PINq0UUFgKGemOU',
 }
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -157,7 +157,8 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'insightexplorerblogs@gmail.com'
-EMAIL_HOST_PASSWORD = 'iexplorer@123'
+#EMAIL_HOST_PASSWORD = 'iexplorer@123'
+EMAIL_HOST_PASSWORD = 'mxyokwpydwxfgghw'
 
 
 django_heroku.settings(locals())

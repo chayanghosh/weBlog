@@ -4,12 +4,32 @@ from django.contrib import messages
 from django.contrib.auth.models import User , auth
 from django.contrib.auth.decorators import login_required
 from .models import *
+from better_profanity import profanity
 import random
+import requests
+import json
 
 # Create your views here.
 @login_required(login_url='login')
 def home(request):
     obs = Post.objects.all()[::-1]
+    for j in obs:
+        print(j.img)
+        params = {
+            'models': 'nudity-2.0,offensive',
+            'api_user': '859734078',
+            'api_secret': 'jn9HYrYETXgejxkQ72WU'
+            }
+        imgPath='C:/Users/chaya/projects/blog/media/{}'.format(j.img)
+        files = {'media': open(imgPath, 'rb')}
+        r = requests.post('https://api.sightengine.com/1.0/check.json', files=files, data=params)
+
+        output = json.loads(r.text)
+        print(output)
+        if output['offensive']['prob'] > 0.5 or output['nudity']['sexual_activity'] > 0.5 or output['nudity']['sexual_display'] > 0.5 or output['nudity']['erotica'] > 0.5:
+            print('Offensive content detected !')
+            j.img = '/images/no_image_available.jpg'
+
     l=['Travel','Photography','Technology','Music','Study','Science','Sports','Business','Fashion','Public','Others']
     d={}
     for i in range(len(l)):
@@ -29,12 +49,18 @@ def create(request):
         title = request.POST['title']
         body = request.POST['body']
         img = request.FILES.get('img',False)
+        print(type(img))
+        
         if not img:
             img = 'images/no_image_available.jpg'
+        
         category = request.POST['Categories']
         name = request.POST['name']
 
         print(title,body,img,name,category)
+        profanity.load_censor_words()
+        title = profanity.censor(title)
+        body = profanity.censor(body)
         ob = Post(title=title,body=body,img=img,category=category,name=name)
         ob.save()
         return redirect('home')
@@ -93,8 +119,8 @@ def cmt(request):
         body = request.POST['comment']
         name = request.POST['name']
         value = request.POST['value']
-
-        print(body,name,value)
+        profanity.load_censor_words()
+        body = profanity.censor(body)
         ob = Comment(body=body,name=name,value=value)
         ob.save()
 
