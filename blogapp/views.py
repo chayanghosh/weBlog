@@ -20,7 +20,8 @@ def home(request):
             'api_user': '859734078',
             'api_secret': 'jn9HYrYETXgejxkQ72WU'
             }
-        imgPath='C:/Users/chaya/projects/blog/media/{}'.format(j.img)
+        #imgPath='C:/Users/chaya/projects/blog/media/{}'.format(j.img)
+        imgPath='/weBlog/media/{}'.format(j.img)
         files = {'media': open(imgPath, 'rb')}
         r = requests.post('https://api.sightengine.com/1.0/check.json', files=files, data=params)
 
