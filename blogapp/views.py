@@ -32,14 +32,20 @@ def home(request):
     #         print('Offensive content detected !')
     #         j.img = '/images/no_image_available.jpg'
     for j in obs:
-        print(j.img)
+        #print(j.img)
         
-        client = SightengineClient('{859734078}', '{jn9HYrYETXgejxkQ72WU}')
-        image = 'https://web-production-e9de.up.railway.app/media/{}'.format(j.img)
-        output = client.check('offensive').set_url(image) 
-        if output['offensive']['prob'] > 0.5 or output['nudity']['sexual_activity'] > 0.5 or output['nudity']['sexual_display'] > 0.5 or output['nudity']['erotica'] > 0.5:
-            print('Offensive content detected !')
-            j.img = '/images/no_image_available.jpg'
+        params = {
+        'url': 'https://web-production-e9de.up.railway.app/media/{}'.format(j.img),
+        'models': 'nudity-2.0,offensive',
+        'api_user': '859734078',
+        'api_secret': 'jn9HYrYETXgejxkQ72WU'
+        }
+        r = requests.get('https://api.sightengine.com/1.0/check.json', params=params)
+        output = json.loads(r.text)
+        # if output['status']=='failure':
+        #     print('Offensive content detected !')
+        #     j.img = '/images/no_image_available.jpg'
+        print(output)
 
     l=['Travel','Photography','Technology','Music','Study','Science','Sports','Business','Fashion','Public','Others']
     d={}
