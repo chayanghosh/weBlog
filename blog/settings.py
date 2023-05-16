@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 import django_heroku
-import environ
 import dj_database_url
 import cloudinary
 import cloudinary_storage
@@ -33,8 +32,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-env = environ.Env()
-environ.Env.read_env()
 
 # Application definition
 
