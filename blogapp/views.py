@@ -30,7 +30,10 @@ def home(request):
         print(output)
         if output['offensive']['prob'] > 0.5 or output['nudity']['sexual_activity'] > 0.5 or output['nudity']['sexual_display'] > 0.5 or output['nudity']['erotica'] > 0.5:
             print('Offensive content detected !')
-            j.img = '/images/offensive_img.jpg'
+            j.img = '/images/default_off.jpg'
+            obj = Post.objects.get(id=j.id)
+            obj.img=j.img
+            obj.save()
     # for j in obs:
     #     #print(j.img)
         

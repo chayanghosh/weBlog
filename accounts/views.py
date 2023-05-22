@@ -33,9 +33,11 @@ def register(request):
         email=request.POST['email']
         password1=request.POST['password1']
         password2=request.POST['password2']
-
+        
         if password1==password2:
-            if User.objects.filter(email=email).exists():
+            if(len(password1)<8 or len(password2)<8):
+                messages.info(request,'password length should be atleast 8 charecters.')
+            elif User.objects.filter(email=email).exists():
                 messages.info(request,'E-mail already taken.')
                 return redirect('register')
             elif User.objects.filter(username=username).exists():
@@ -48,7 +50,7 @@ def register(request):
                 mydict={'firstname':first_name}
                 html_template = 'register_email.html'
                 html_message = render_to_string(html_template, context=mydict)
-                subject = 'Welcome to Insight-Explorer!'
+                subject = 'Welcome to WeBlog!'
                 email_from = settings.EMAIL_HOST_USER
                 recipient_list = [email]
                 message = EmailMessage(subject, html_message,
