@@ -8,7 +8,7 @@ from better_profanity import profanity
 import random
 import requests
 import json
-from sightengine.client import *
+from sightengine.client import SightengineClient
 
 # Create your views here.
 @login_required(login_url='login')
@@ -28,30 +28,42 @@ def home(request):
 
         output = json.loads(r.text)
         print(output)
+        client = SightengineClient('859734078', 'jn9HYrYETXgejxkQ72WU') # don't forget to add your credentials
+        for j in obs:
+            print(j.img)
+            image = 'https://web-production-47009.up.railway.app/media/images/{}'.format(j.img)
+            output = client.check('offensive').set_url(image) # you can also send an image from your computer with set_file
+
+            if output['offensive']['prob'] > 0.5:
+                print('Offensive content detected !')
+                j.img = '/images/default_off.jpg'
+                obj = Post.objects.get(id=j.id)
+                obj.img=j.img
+                obj.save()
         # if output['offensive']['prob'] > 0.5 or output['nudity']['sexual_activity'] > 0.5 or output['nudity']['sexual_display'] > 0.5 or output['nudity']['erotica'] > 0.5:
         #     print('Offensive content detected !')
         #     j.img = '/images/default_off.jpg'
         #     obj = Post.objects.get(id=j.id)
         #     obj.img=j.img
         #     obj.save()
-    for j in obs:
-        #print(j.img)
+    # for j in obs:
+    #     #print(j.img)
         
-        params = {
-        'url': 'https://web-production-47009.up.railway.app/media/{}'.format(j.img),
-        'models': 'nudity-2.0,offensive',
-        'api_user': '859734078',
-        'api_secret': 'jn9HYrYETXgejxkQ72WU'
-        }
-        r = requests.get('https://api.sightengine.com/1.0/check.json', params=params)
-        output = json.loads(r.text)
-        if output['offensive']['prob'] > 0.5 or output['nudity']['sexual_activity'] > 0.5 or output['nudity']['sexual_display'] > 0.5 or output['nudity']['erotica'] > 0.5:
-            print('Offensive content detected !')
-            j.img = '/images/default_off.jpg'
-            obj = Post.objects.get(id=j.id)
-            obj.img=j.img
-            obj.save()
-        print(output)
+    #     params = {
+    #     'url': 'https://web-production-47009.up.railway.app/media/{}'.format(j.img),
+    #     'models': 'nudity-2.0,offensive',
+    #     'api_user': '859734078',
+    #     'api_secret': 'jn9HYrYETXgejxkQ72WU'
+    #     }
+    #     r = requests.get('https://api.sightengine.com/1.0/check.json', params=params)
+    #     output = json.loads(r.text)
+    #     if output['offensive']['prob'] > 0.5 or output['nudity']['sexual_activity'] > 0.5 or output['nudity']['sexual_display'] > 0.5 or output['nudity']['erotica'] > 0.5:
+    #         print('Offensive content detected !')
+    #         j.img = '/images/default_off.jpg'
+    #         obj = Post.objects.get(id=j.id)
+    #         obj.img=j.img
+    #         obj.save()
+    #     print(output)
 
     l=['Travel','Photography','Technology','Music','Study','Science','Sports','Business','Fashion','Public','Others']
     d={}
