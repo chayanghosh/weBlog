@@ -23,11 +23,11 @@ def home(request):
             }
         #imgPath='C:/Users/chaya/projects/blog/media/{}'.format(j.img)
         imgPath='https://web-production-47009.up.railway.app/media/{}'.format(j.img)
-        files = {'media': open(imgPath, 'rb')}
-        r = requests.post('https://api.sightengine.com/1.0/check.json', files=files, data=params)
+        # files = {'media': open(imgPath, 'rb')}
+        # r = requests.post('https://api.sightengine.com/1.0/check.json', files=files, data=params)
 
-        output = json.loads(r.text)
-        print(output)
+        # output = json.loads(r.text)
+        # print(output)
         client = SightengineClient('859734078', 'jn9HYrYETXgejxkQ72WU') # don't forget to add your credentials
         for j in obs:
             print(j.img)
